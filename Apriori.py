@@ -7,8 +7,10 @@
 
 #The rule turned around says that if an itemset is infrequent, then its supersets are also infrequent.
 
+import pandas as pd 
+import time
 ###### Apriori algorithm in association rule
-def loadIBM(filename='data.ntrans_1.nitems_0.01'):
+def loadIBM(filename='data.ntrans_0.1.nitems_0.01'):
     # Preprocessing the disorganized data (each transaction was already sorted )
     # which was created by IBM
     
@@ -89,31 +91,24 @@ def apriori_gen(Lk,k):
     return cand_set
     
 dataset_list = loadIBM()
+
+start = time.time()
 C1 = generateC1(dataset_list)
-L1,support = check_freq(dataset_list,C1,min_support = 0.4)
+L1,support = check_freq(dataset_list,C1,min_support = 0.6)
 All_freq_set = [L1]
 k = 2
 
 while (len(All_freq_set[k-2]) > 0):
     Ck = apriori_gen(All_freq_set[k-2],k)
-    Lk,supportk = check_freq(dataset_list,Ck,min_support = 0.4)
+    Lk,supportk = check_freq(dataset_list,Ck,min_support = 0.6)
     support.update(supportk)
     All_freq_set.append(Lk)
     
     k += 1
-
     
-###### Useless part
-def min_conf(m,p):
-    # m: number of superset satisfied minimum support 
-    # p: number of subset satisfied minimum support 
-    confidence = m/p
-    return True
+end = time.time()
 
-def min_sup(s,L):
-    # s: number of support transaction
-    # L: number of total transaction
-    support = s/L
-    return True
-    
-######
+print("Time Taken is:")
+print(end-start)
+print("All frequent itemsets:")
+print(All_freq_set)

@@ -1,6 +1,9 @@
 # Author: BoYu Huang 
 # Date: 2018/10/8
 
+import pandas as pd 
+import time
+
 ###### Brute force 
 def loadIBM(filename='data.ntrans_0.1.nitems_0.01'):
     # Preprocessing the disorganized data (each transaction was already sorted )
@@ -43,9 +46,6 @@ def generateC1(dataset_list):
 #for i in range(len(C1)):
 #    C1[i] = list([C1[i]])
 
-All_set = []
-All_set.append(C1)
-
 def createALL(All_set,C1):
 # create all possible frequent itemset
     for i in range(len(C1)-1):
@@ -67,9 +67,9 @@ def createALL(All_set,C1):
                 del list_current
     return All_set
 
-def check_freq(dataset_list, All_set,min_support = 0.4):
+def check_freq(dataset_list, All_set,min_support = 0.6):
     # check whether minimum support requirement is satisfied
-    #min_support = 0.4
+    #min_support = 0.6
     freq_set = []
     numItems = float(len(dataset_list))
     for set_group in All_set:
@@ -85,3 +85,19 @@ def check_freq(dataset_list, All_set,min_support = 0.4):
                 #del each_set
 
     return freq_set
+    
+    
+dataset_list = loadIBM()
+
+start = time.time()
+C1 = generateC1(dataset_list)
+All_set = []
+All_set.append(C1)
+All_set = createALL(All_set,C1)
+freq_set = check_freq(dataset_list,All_set)
+end = time.time()
+
+print("Time Taken is:")
+print(end-start)
+print("All frequent itemsets:")
+print(freq_set)
