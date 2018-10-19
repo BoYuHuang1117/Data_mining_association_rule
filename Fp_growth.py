@@ -85,18 +85,15 @@ class Treenode:
         """ 
         count will increase by one, once it is found in each transaction 
         """
-        
         self.count += 1
     def show(self):
         """ 
         This function will show the entire tree 
         """
-        
         print(self.item, self.count)
         for child in self.children.values():
             child.show()
-            
-            
+    
 def create_FPTree(dataset_list, min_support):
     """
     create FPTree and HeaderTable
@@ -117,6 +114,7 @@ def create_FPTree(dataset_list, min_support):
     for dataset in order_dataset:
         #dataset is the ordered itemsets in each transactions
         updateTree(dataset, retTree, HeaderTable)
+    print(HeaderTable)
     
     return retTree, HeaderTable
     
@@ -147,29 +145,32 @@ def uptransverse(Node, prefixpath):
     """
     This function is to find the whole parent node of certain node
     """
-    while (Node.parent !=None):
+    if Node.parent != None:
         prefixpath.append(Node.item)
+        #print(prefixpath)
         uptransverse(Node.parent,prefixpath)
     
 def prefix_path(basepatt, Treenode):
     # basepatt: frequent one item
     # Use nodelink to traceback each same-item node in the tree
-    cond_patt_base = {}
+    cond_patt_base = []
     
     while Treenode != None:
         # Until the same item reach its last appearance in the tree
         prefixpath = []
         uptransverse(Treenode, prefixpath)
         if len(prefixpath) > 1:
-            cond_patt_base[forzenset(prefixPath[1:])] = Treenode.count
+            cond_patt_base.append(prefixpath[1:])
         Treenode = Treenode.nodeLink
-    
+        #print(cond_patt_base)
+        
     return cond_patt_base
-    
     
 def Mining (FPTree, HeaderTable, min_support, prefix, frequent_itemset):
     L1 = list(HeaderTable.keys())
+    print(L1)
     for basePat in L1:
+        print(basePat)
         new_frequentset = prefix.copy()
         new_frequentset.add(basePat)
         # add frequent itemset to final list of frequent itemsets
@@ -178,11 +179,12 @@ def Mining (FPTree, HeaderTable, min_support, prefix, frequent_itemset):
         # get all conditional pattern bases for item or itemsets
         Conditional_pattern_bases = prefix_path(basePat, HeaderTable[basePat][1])
         # call FP Tree construction to make conditional FP Tree
+        print(Conditional_pattern_bases)
         Conditional_FPTree, Conditional_header = create_FPTree(Conditional_pattern_bases,min_support)
-
+        print(Conditional_header)
+        
         if Conditional_header != None:
             Mine_Tree(Conditional_FPTree, Conditional_header, min_support, new_frequentset, frequent_itemset)
-    
     
 dataset_list = loadIBM()
 min_support = float(0.6*len(dataset_list))
