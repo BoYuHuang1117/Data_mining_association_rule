@@ -20,7 +20,6 @@ def loadIBM(filename='data.ntrans_0.1.nitems_0.01'):
 
     for i in range(len(dataset['items'])):
         dataset['items'][i] = int(dataset['items'][i].split()[2])
-        #683rows - 15 secs
 
     # make every transaction in each list which is contained by a big list
     dataset_list = []
@@ -63,13 +62,12 @@ def createALL(All_set,C1):
                     list_current.append(item[-1])
                     All_set[i+1].append(list_current)
                     
-                    #print(All_set)
                 del list_current
     return All_set
 
 def check_freq(dataset_list, All_set,min_support = 0.6):
     # check whether minimum support requirement is satisfied
-    #min_support = 0.6
+    # min_support = 0.6
     freq_set = []
     numItems = float(len(dataset_list))
     for set_group in All_set:
@@ -78,11 +76,8 @@ def check_freq(dataset_list, All_set,min_support = 0.6):
             for tran_set in dataset_list:
                 if [element for element in each_set if element in tran_set] == each_set:
                     count = count + 1
-                    #print(count)
             if count/numItems >= min_support:
-                #print(each_set) 
                 freq_set.append(each_set)
-                #del each_set
 
     return freq_set
     

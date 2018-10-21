@@ -25,7 +25,6 @@ def loadIBM(filename='data.ntrans_0.1.nitems_0.01'):
 
     for i in range(len(dataset['items'])):
         dataset['items'][i] = int(dataset['items'][i].split()[2])
-        #29024rows - 10 mins
 
     # make every transaction in each list which is contained by a big list
     dataset_list = []
