@@ -1,7 +1,7 @@
 **This folder contains several datasets**
 
-`1. Kaggle dataset https://www.kaggle.com/msp48731/frequent-itemsets-and-association-rules/notebook
-  "Using order_products__prior.csv" (file too large can't be uploaded)
+`1. UCI dataset https://archive.ics.uci.edu/ml/datasets/Absenteeism+at+work
+  -"Using Absenteeism_at_work.csv" 
 
 `2. IBM data generator 
 (1) 100 trans 10 items
