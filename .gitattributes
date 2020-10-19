@@ -1,4 +1,5 @@
-*.pdf linguist-detectable=false
+*.1 linguist-documentation
+*.3 linguist-language=text
 *.html linguist-detectable=false
 *.py linguist-detectable=true
 *.csv linguist-detectable=false
