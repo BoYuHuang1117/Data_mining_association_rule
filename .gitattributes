@@ -1,4 +1,4 @@
-*.Roff linguist-detectable=false
+*.pdf linguist-detectable=false
 *.html linguist-detectable=false
 *.py linguist-detectable=true
 *.csv linguist-detectable=false
